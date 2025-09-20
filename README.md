@@ -144,6 +144,71 @@ The line that does all of this is 'movc   A, @A+PC'. The functionality of this l
 
 After the getPattern returns, the bit pattern is now in the Accumulator.
 
+## A dice 'roll' that slows down as it goes before settling on a final face
+
+The dice 'roll' displays faces 6 to 1 in a repeating sequence, starting quite fast for a period,
+then mid speed for a period, then slowly for a period before settling on a final 'random' face.
+
+This slowing roll behaviour is controlled by two variables, DELAY and REPEATS, here are the equates to Registers in the code:
+
+Code, line 11:
+```
+DELAY		equ R6
+REPEATS		equ R7
+```
+DELAY is really a delay factor that is used when calling the delaySub subroutine, REPEATS is the number of dice faces to show.
+
+The first code in the main loop sets DELAY to value 1 and REPEATS to value 16:
+
+Code, line 19:
+```
+; Main, endless loop
+main:
+	mov	DELAY, #01h
+	mov	REPEATS, #020h	
+```
+Each time the display subroutine is called, it displays REPEATS number of dice faces, with a delay between faces of DELAY, then subroutine slowTheRoll is called, which halves the value in REPEATS and doubles the value in DELAY, this continues until DELAY is equal to 8.
+
+Code, line 45:
+```
+display:
+	mov	A, REPEATS
+	mov	R3, A
+displayLoop:
+	mov	A, PATTERN_NUM
+	acall	getPattern
+	mov	LED_PORT, A
+	acall	delaySub
+	acall	spin
+	djnz	R3, displayLoop
+	ret
+
+slowTheRoll:
+	mov	A, DELAY
+	rl	A
+	mov	DELAY, A
+	mov	A, REPEATS
+	rr	A
+	mov	REPEATS, A
+	ret
+
+```
+So in summary: we display REPEATS number of faces with DELAY delay between changes, then half the REPEATS and double DELAY and display again. keep going until DELAY = 8
+
+You can see here where I check for DELAY = 8 using code:  cjne   DELAY, #08h, go :
+
+Code, line 27:
+
+```
+go:
+	acall 	display
+	acall	slowTheRoll
+
+	cjne   DELAY, #08h, go	
+	
+	sjmp	main
+```
+
 ## Software Development Environment
 I am using a free IDE called MCU 8051 IDE running on Linux Mint.
 
