@@ -3,6 +3,8 @@ A Dice project implemented on AT89S52 in 8051 assembly.
 
 This is a re-implementation of an original novelty project I designed and built more than 20 years ago - an electronic dice. 
 
+[![Dice 8051 Video](https://img.youtube.com/vi/nYbFbY3gtLQ/0.jpg)](https://www.youtube.com/watch?v=nYbFbY3gtLQ)
+
 The original dice project was programmed in 8051 assembly on a 89C1051 microcontroller and had the following elements:
 
 - Use of o/p ports to drive a number of LEDS to show the six dice faces
