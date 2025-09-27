@@ -116,7 +116,7 @@ pollPB1:
 	jnb 	PB1, go
 	sjmp	pollPB1
 ```
-In this loop, it first decrements the modulo 6 counter, then polls the button, then repeats. When the button is pressed, it exits the polling loop. A this point, the modulo 6 counter register has a value in it determined by when the button was pressed. As the loop is very fast, the count value seems to be random (random enough for our purposes).
+In this loop, it first decrements the modulo 6 counter, then polls the button, then repeats. When the button is pressed, it exits the polling loop. At this point, the modulo 6 counter register has a value in it determined by when the button was pressed. As the loop is very fast, the count value seems to be random (random enough for our purposes).
 
 
 ## Bit pattern lookup table for the dice faces
