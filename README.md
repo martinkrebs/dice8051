@@ -1,5 +1,5 @@
-# dice8051
-A dice project implemented on AT89S52 in 8051 assembly.
+# Tutorial - dice8051
+A Novelty 'dice roller' project implemented on AT89S52 in 8051 assembly.
 
 This is a re-implementation of an original novelty project I designed and built more than 20 years ago - an electronic dice. 
 
